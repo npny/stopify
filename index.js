@@ -9,8 +9,6 @@ app.commandLine.appendSwitch("widevine-cdm-version", "0")
 
 // Lauch the app
 app.on("ready", function(){
-	app.on("window-all-closed", () => app.quit());
-
 	// Open the main window
 	window = new electron.BrowserWindow({
 		width: 1280,
@@ -49,9 +47,41 @@ app.on("ready", function(){
 		}
 	`));
 
-	// Bind global key shortcuts
-	const bind = (key, element) => electron.globalShortcut.register(key, () => window.webContents.executeJavaScript(`document.querySelector("${element}").click()`));
-	bind("MediaNextTrack", ".player-controls [title=Next]");
-	bind("MediaPreviousTrack", ".player-controls [title=Previous]");
-	bind("MediaPlayPause", ".player-controls [title=Play], .player-controls [title=Pause]");
+	// Bind global key shortcuts for media control
+	const bindButton = (key, element) => electron.globalShortcut.register(key, () => window.webContents.executeJavaScript(`document.querySelector("${element}").click()`));
+	bindButton("MediaNextTrack", ".player-controls [title=Next]");
+	bindButton("MediaPreviousTrack", ".player-controls [title=Previous]");
+	bindButton("MediaPlayPause", ".player-controls [title=Play], .player-controls [title=Pause]");
+
+	// Bind local key shortcuts for navigation and paste
+	electron.Menu.setApplicationMenu(electron.Menu.buildFromTemplate([
+		{
+			label: "Stopify",
+			submenu: [
+				{label: "Close", accelerator: "CmdOrCtrl+W", click: () => app.quit()},
+				{label: "Close all", accelerator: "CmdOrCtrl+Shift+W", click: () => app.quit()},
+				{label: "Quit", accelerator: "CmdOrCtrl+Q", click: () => app.quit()},
+			]
+		},
+		{
+			label: "Edit",
+			submenu: [
+				{label: "Cut", accelerator: "CmdOrCtrl+X", role: "cut"},
+				{label: "Copy", accelerator: "CmdOrCtrl+C", role: "copy"},
+				{label: "Paste", accelerator: "CmdOrCtrl+V", role: "paste"},
+				{label: "Select All", accelerator: "CmdOrCtrl+A", role: "selectall"},
+			]
+		},
+		{
+			label: "Navigation",
+			submenu: [
+				{label: "Reload", accelerator: "CmdOrCtrl+R", click: () => window.webContents.reloadIgnoringCache()},
+				{label: "Back", accelerator: "CmdOrCtrl+Left", click: () => window.webContents.goBack()},
+				{label: "Forward", accelerator: "CmdOrCtrl+Right", click: () => window.webContents.goForward()},
+			]
+		},
+	]))
+
+	// Bind quit
+	app.on("window-all-closed", () => app.quit());
 });
