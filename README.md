@@ -1,7 +1,7 @@
 # [Stopify](https://github.com/npny/stopify)
 Turns the Spotify web player into a native OSX app, with the keybindings and without the ads.
 
-[__Download latest__](https://github.com/npny/stopify/releases/download/1.0.0/Stopify.tar.gz)  
+[__Download latest__](https://github.com/npny/stopify/releases/download/master/Stopify.tar.gz)  
 [__All releases__](https://github.com/npny/stopify/releases/)
 
 <p align="center">
