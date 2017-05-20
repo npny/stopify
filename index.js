@@ -78,6 +78,7 @@ app.on("ready", function(){
 				{label: "Reload", accelerator: "CmdOrCtrl+R", click: () => window.webContents.reloadIgnoringCache()},
 				{label: "Back", accelerator: "CmdOrCtrl+Left", click: () => window.webContents.goBack()},
 				{label: "Forward", accelerator: "CmdOrCtrl+Right", click: () => window.webContents.goForward()},
+				{label: "Search", accelerator: "CmdOrCtrl+F", click: () => window.webContents.executeJavaScript(`document.querySelector('a[href="/search"]').click();`)},
 			]
 		},
 	]))
