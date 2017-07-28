@@ -25,7 +25,8 @@ app.on("ready", function(){
 	// Blacklist ads
 	const blacklist = [
 		"https://*.cloudfront.net/mp3-ad/*",
-		"https://spclient.wg.spotify.com/ads/*"
+		"https://spclient.wg.spotify.com/ads/*",
+		"https://*.scdn.co/audio/*"
 	]
 	window.webContents.session.webRequest.onBeforeRequest({urls: blacklist}, (details, callback) => callback({cancel: true}))
 
