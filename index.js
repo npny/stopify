@@ -1,11 +1,7 @@
 const electron = require("electron");
 const app = electron.app;
+const widevine = require('electron-widevinecdm').load(app);
 let window;
-
-// Add Chromium's Widevine plugin back into Electron
-const widevinePath = require("child_process").execSync("find '/Applications/Google Chrome.app' -name widevinecdmadapter.plugin").toString().split("\n")[0];
-app.commandLine.appendSwitch("widevine-cdm-path", widevinePath)
-app.commandLine.appendSwitch("widevine-cdm-version", "0")
 
 // Lauch the app
 app.on("ready", function(){
